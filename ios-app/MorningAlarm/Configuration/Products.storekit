@@ -1,0 +1,48 @@
+{
+  "identifier": "5A1B0000-0000-0000-0000-000000000001",
+  "nonRenewingSubscriptions": [],
+  "products": [],
+  "settings": {
+    "_applicationInternalID": "0000000000",
+    "_developerTeamID": "0000000000",
+    "_lastSynchronizedDate": 0
+  },
+  "subscriptionGroups": [
+    {
+      "id": "5A1B0000-0000-0000-0000-000000000010",
+      "localizations": [],
+      "name": "MorningAlarm Plus",
+      "subscriptions": [
+        {
+          "adHocOffers": [],
+          "codeOffers": [],
+          "displayPrice": "50.00",
+          "familyShareable": false,
+          "groupNumber": 1,
+          "internalID": "5A1B0000-0000-0000-0000-000000000011",
+          "introductoryOffer": {
+            "internalID": "5A1B0000-0000-0000-0000-000000000012",
+            "paymentMode": "free",
+            "subscriptionPeriod": "P3D"
+          },
+          "localizations": [
+            {
+              "description": "Full access to every alarm and exercise, billed monthly.",
+              "displayName": "MorningAlarm Plus (Monthly)",
+              "locale": "en_US"
+            }
+          ],
+          "productID": "com.morningalarm.app.monthly",
+          "recurringSubscriptionPeriod": "P1M",
+          "referenceName": "Monthly Subscription",
+          "subscriptionGroupID": "5A1B0000-0000-0000-0000-000000000010",
+          "type": "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version": {
+    "major": 3,
+    "minor": 0
+  }
+}
