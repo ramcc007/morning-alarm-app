@@ -19,18 +19,20 @@ python3 -m http.server 8000
 # open http://localhost:8000
 ```
 
-## Deploy
+## Deploy (free)
 
-Any static host works. Two of the fastest:
+**GitHub Pages (already wired up)**
+A workflow at `.github/workflows/deploy-pages.yml` deploys this folder
+automatically on every push that touches `website/`. One-time setup:
 
-**GitHub Pages**
-```bash
-# from repo root, one-time setup
-git subtree push --prefix website origin gh-pages
-```
-Then enable Pages in the repo settings pointing at the `gh-pages` branch.
+1. In the GitHub repo, go to **Settings → Pages**.
+2. Under **Build and deployment → Source**, choose **GitHub Actions**.
+3. Push to this branch (or re-run the workflow from the **Actions** tab) —
+   the site publishes to `https://<your-github-username>.github.io/<repo-name>/`.
 
-**Netlify / Vercel**
+No further action needed after that first switch; every future push redeploys it.
+
+**Netlify / Vercel** (also free tiers)
 Drag-and-drop the `website/` folder into the Netlify dashboard, or connect
 the repo and set the site's base directory to `website/` with no build command.
 
