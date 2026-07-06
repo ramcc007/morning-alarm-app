@@ -38,8 +38,8 @@ the repo and set the site's base directory to `website/` with no build command.
 
 ## Before going live
 
-- [ ] Replace the "Coming soon" / waitlist copy with a real App Store link once the app is approved.
+- [ ] Replace the "Coming soon" / waitlist copy with a real Google Play link once the app is approved.
 - [ ] Wire the waitlist form (`js/main.js`) to a real email capture backend (Mailchimp, ConvertKit, a serverless function, etc.) — right now it only shows a client-side confirmation message and doesn't store anything.
-- [ ] Have `privacy.html` and `terms.html` reviewed by a lawyer — they're solid drafts covering the app's actual data practices (on-device camera processing, StoreKit billing, no analytics SDKs) but are not a substitute for legal review.
-- [ ] Swap the illustrated phone mockups in the hero for real device screenshots once you have build screenshots from Xcode/TestFlight.
+- [ ] Have `privacy.html` and `terms.html` reviewed by a lawyer — they're solid drafts covering the app's actual data practices (on-device camera processing, Play Billing subscriptions, no analytics SDKs) but are not a substitute for legal review.
+- [ ] Swap the illustrated phone mockups in the hero for real device screenshots once you have build screenshots from Android Studio.
 - [ ] Update `support@morningalarm.app` and any other placeholder contact/domain references to your real domain and inbox.

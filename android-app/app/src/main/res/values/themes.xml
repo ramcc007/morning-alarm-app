@@ -1,0 +1,18 @@
+<resources>
+    <style name="Theme.MorningAlarm" parent="android:Theme.Material.NoActionBar">
+        <item name="android:statusBarColor">@color/background</item>
+        <item name="android:navigationBarColor">@color/background</item>
+        <item name="android:windowBackground">@color/background</item>
+    </style>
+
+    <!--
+      Used only by AlarmRingingActivity. android:windowIsTranslucent / the
+      showWhenLocked+turnScreenOn flags are set programmatically (they need
+      the Window instance, see AlarmRingingActivity.onCreate), this theme
+      just strips chrome so the camera preview can go edge-to-edge.
+    -->
+    <style name="Theme.MorningAlarm.Ringing" parent="Theme.MorningAlarm">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+</resources>

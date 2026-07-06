@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Simple alarm-bell glyph, centered in the adaptive icon's safe zone. Replace with a real brand mark before shipping. -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,32 a16,16 0 0,1 16,16 v10 l6,10 H32 l6,-10 v-10 a16,16 0 0,1 16,-16 z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M48,72 a6,6 0 0,0 12,0 z" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M30,30 l-8,-8 M78,30 l8,-8"
+        android:strokeColor="#FF8A42"
+        android:strokeWidth="4" />
+</vector>

@@ -1,0 +1,7 @@
+<resources>
+    <color name="background">#0A0B10</color>
+    <color name="surface">#171923</color>
+    <color name="accent_orange">#FF8A42</color>
+    <color name="accent_pink">#FF5C8A</color>
+    <color name="success">#4FD987</color>
+</resources>
