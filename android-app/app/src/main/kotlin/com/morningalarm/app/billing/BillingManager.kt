@@ -7,6 +7,7 @@ import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.BillingClientStateListener
 import com.android.billingclient.api.BillingFlowParams
 import com.android.billingclient.api.BillingResult
+import com.android.billingclient.api.PendingPurchasesParams
 import com.android.billingclient.api.ProductDetails
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.PurchasesUpdatedListener
@@ -50,10 +51,16 @@ class BillingManager(private val context: Context) {
         }
     }
 
-    // Subscriptions support pending purchases by default in Billing Library 7+;
-    // enablePendingPurchases(...) is only required if you also sell one-time products.
+    // Billing Library 7+ requires an explicit pending-purchases declaration or
+    // BillingClient.Builder.build() throws IllegalArgumentException, even for a
+    // subscription-only app - enableOneTimeProducts() is the required call shape.
     private val billingClient = BillingClient.newBuilder(context)
         .setListener(purchasesUpdatedListener)
+        .enablePendingPurchases(
+            PendingPurchasesParams.newBuilder()
+                .enableOneTimeProducts()
+                .build()
+        )
         .build()
 
     fun start() {
