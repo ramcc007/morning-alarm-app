@@ -3,25 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MorningAlarm — The alarm you have to earn the right to stop</title>
-<meta name="description" content="MorningAlarm is the Android alarm clock that only stops once your camera confirms you've done your push-ups. No more snoozing your goals away.">
+<title>MorningAlarm — The alarm you can't talk your way out of</title>
+<meta name="description" content="MorningAlarm keeps ringing until your camera watches you finish real push-ups. On-device, private, and free for 3 days.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⏰</text></svg>">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<header class="site-header">
-  <div class="container nav">
+<header class="nav-bar" id="navBar">
+  <div class="container nav-inner">
     <a class="brand" href="#top">
-      <span class="brand-mark">⏰</span> MorningAlarm
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="17" fill="none" stroke="url(#navGrad)" stroke-width="3"/>
+        <path d="M6 24a14 14 0 0 1 28 0" fill="none" stroke="url(#navGrad)" stroke-width="3" stroke-linecap="round"/>
+        <defs>
+          <linearGradient id="navGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#FF6B4F"/>
+            <stop offset="100%" stop-color="#FFB037"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      MorningAlarm
     </a>
-    <nav class="nav-links" id="navLinks">
+    <nav class="nav-links">
       <a href="#how-it-works">How it works</a>
-      <a href="#features">Features</a>
+      <a href="#features">Why it works</a>
       <a href="#pricing">Pricing</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <a class="btn btn-primary btn-small" href="#waitlist">Get early access</a>
+    <a href="https://github.com/ramcc007/morning-alarm-app/releases/download/debug-latest/morningalarm.apk" class="btn btn-primary btn-small" data-apk-link>Get the APK</a>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
   </div>
 </header>
@@ -32,129 +42,135 @@
   <section class="hero">
     <div class="container hero-grid">
       <div class="hero-copy">
-        <span class="eyebrow">Coming soon to Google Play</span>
-        <h1>The alarm clock that makes you <span class="text-gradient">earn</span> the snooze.</h1>
+        <span class="eyebrow">Early access · Android · Direct download</span>
+        <h1>Wake up. Or keep doing <span class="text-underline">push-ups</span>.</h1>
         <p class="lede">
-          MorningAlarm won't stop ringing until your front camera watches you
-          complete real push-ups. No half-asleep tap-to-dismiss. No lying
-          back down. Just you, three push-ups, and a morning that starts on
-          your terms.
+          MorningAlarm keeps ringing until your own front camera watches you
+          finish real reps. No snooze bargaining, no half-asleep tap-to-dismiss —
+          just you, the floor, and a morning that starts the second you get up.
         </p>
         <div class="hero-actions">
-          <a href="#waitlist" class="btn btn-primary">Join the waitlist</a>
-          <a href="#how-it-works" class="btn btn-ghost">See how it works ↓</a>
+          <a href="https://github.com/ramcc007/morning-alarm-app/releases/download/debug-latest/morningalarm.apk" class="btn btn-primary btn-large" data-apk-link>
+            <span>Download the APK</span>
+            <small>Android · free 3-day trial</small>
+          </a>
+          <a href="#how-it-works" class="btn btn-ghost btn-large">See how it works</a>
         </div>
-        <div class="hero-trust">
-          <div class="stars">★★★★★</div>
-          <p>Built for people who've snoozed their goals one too many times.</p>
-        </div>
+        <p class="hero-note">Not on Google Play yet — this installs directly from GitHub. Details in the FAQ.</p>
       </div>
 
       <div class="hero-visual">
-        <div class="phone-mock phone-ring">
+        <div class="phone-mock">
           <div class="phone-notch"></div>
-          <div class="phone-screen phone-screen-ring">
+          <div class="phone-screen">
             <p class="ring-label">MORNING ALARM</p>
-            <p class="ring-count">1 <span>/ 3</span></p>
-            <p class="ring-sub">push-ups</p>
-            <div class="ring-progress"><span style="width:33%"></span></div>
+            <p class="ring-count">2 <span>/ 3</span></p>
+            <p class="ring-sub">push-ups tracked live</p>
+            <div class="ring-progress"><span style="width:66%"></span></div>
             <div class="ring-camera">
               <svg viewBox="0 0 120 120" class="pose-figure">
-                <circle cx="60" cy="26" r="12" fill="none" stroke="currentColor" stroke-width="3"/>
-                <line x1="60" y1="38" x2="60" y2="72" stroke="currentColor" stroke-width="3"/>
-                <line x1="60" y1="46" x2="30" y2="60" stroke="currentColor" stroke-width="3"/>
-                <line x1="60" y1="46" x2="90" y2="60" stroke="currentColor" stroke-width="3"/>
-                <line x1="60" y1="72" x2="38" y2="100" stroke="currentColor" stroke-width="3"/>
-                <line x1="60" y1="72" x2="82" y2="100" stroke="currentColor" stroke-width="3"/>
+                <circle cx="60" cy="24" r="11" fill="none" stroke="currentColor" stroke-width="3"/>
+                <line x1="60" y1="35" x2="60" y2="66" stroke="currentColor" stroke-width="3"/>
+                <line x1="60" y1="42" x2="28" y2="58" stroke="currentColor" stroke-width="3"/>
+                <line x1="60" y1="42" x2="92" y2="58" stroke="currentColor" stroke-width="3"/>
+                <line x1="60" y1="66" x2="36" y2="98" stroke="currentColor" stroke-width="3"/>
+                <line x1="60" y1="66" x2="84" y2="98" stroke="currentColor" stroke-width="3"/>
               </svg>
+              <span class="rec-dot">● tracking</span>
             </div>
-            <p class="ring-hint">Keep your form steady…</p>
-          </div>
-        </div>
-        <div class="phone-mock phone-list">
-          <div class="phone-notch"></div>
-          <div class="phone-screen phone-screen-list">
-            <p class="list-title">Alarms</p>
-            <div class="list-row">
-              <div><span class="time">6:30 <em>AM</em></span><span class="sub">3 push-ups · Weekdays</span></div>
-              <span class="toggle on"></span>
-            </div>
-            <div class="list-row">
-              <div><span class="time">7:15 <em>AM</em></span><span class="sub">5 push-ups · Weekends</span></div>
-              <span class="toggle"></span>
-            </div>
-            <div class="list-add">＋</div>
+            <p class="ring-hint">Full extension, nice and steady…</p>
           </div>
         </div>
       </div>
     </div>
+
+    <a href="#sunrise" class="scroll-cue" aria-label="Scroll to discover more">
+      <span>Discover more</span>
+      <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
   </section>
 
-  <!-- LOGOS / SOCIAL PROOF STRIP -->
-  <section class="strip">
-    <div class="container strip-grid">
-      <div><strong>100%</strong><span>on-device rep counting</span></div>
-      <div><strong>0</strong><span>snooze buttons that actually work</span></div>
-      <div><strong>3 days</strong><span>free, on us</span></div>
-      <div><strong>₹50</strong><span>per month after</span></div>
+  <!-- SUNRISE SCROLLYTELLING -->
+  <section class="sunrise-track" id="sunrise">
+    <div class="sunrise-pin" id="sunrisePin">
+      <div class="sky sky-night"></div>
+      <div class="sky sky-dawn" id="skyDawn"></div>
+      <div class="stars" id="stars"></div>
+      <div class="sun" id="sun"></div>
+      <div class="hills">
+        <svg viewBox="0 0 1440 220" preserveAspectRatio="none"><path d="M0,120 C 240,40 480,180 720,110 C 960,40 1200,150 1440,90 L1440,220 L0,220 Z"/></svg>
+        <svg viewBox="0 0 1440 220" preserveAspectRatio="none" class="hills-back"><path d="M0,160 C 300,90 600,190 900,140 C 1150,100 1300,170 1440,150 L1440,220 L0,220 Z"/></svg>
+      </div>
+      <div class="sunrise-caption" id="sunriseCaption">
+        <p>Every rep, on your own time —</p>
+        <p class="text-gradient-light">tracked the moment you get moving.</p>
+      </div>
     </div>
   </section>
 
   <!-- HOW IT WORKS -->
-  <section id="how-it-works" class="section">
+  <section id="how-it-works" class="section steps-section">
     <div class="container">
-      <h2 class="section-title">How MorningAlarm works</h2>
-      <p class="section-sub">Three steps between you and the world's most effective snooze button.</p>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <h3>Set your alarm & exercise</h3>
-          <p>Pick a time, choose push-ups, and set your rep target — 3 is a great place to start.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <h3>It rings. You get up.</h3>
-          <p>When the alarm fires, prop your phone up facing you. The alarm keeps ringing until you do.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <h3>Camera counts your reps</h3>
-          <p>On-device motion tracking counts each push-up in real time. Hit your target and the alarm stops — automatically.</p>
-        </div>
+      <span class="eyebrow eyebrow-center">How it works</span>
+      <h2 class="section-title">Three reps closer to awake.</h2>
+      <p class="section-sub">Scroll through exactly what happens between the first ring and the moment it finally goes quiet.</p>
+
+      <div class="steps-list">
+        <article class="step-card">
+          <div class="step-index">01</div>
+          <div class="step-body">
+            <h3>It rings — loud</h3>
+            <p>Full volume, ignores your silent switch, takes over the lock screen the instant your alarm time hits. There's no swipe-away shortcut.</p>
+          </div>
+        </article>
+        <article class="step-card">
+          <div class="step-index">02</div>
+          <div class="step-body">
+            <h3>You move — on camera</h3>
+            <p>Prop your phone up. Your front camera watches your push-up form in real time and counts every valid rep, fully on-device.</p>
+          </div>
+        </article>
+        <article class="step-card">
+          <div class="step-index">03</div>
+          <div class="step-body">
+            <h3>It stops — for real</h3>
+            <p>Hit your target reps and the alarm cuts out automatically. No fake-out, no "one more minute," no button to cheat with.</p>
+          </div>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- FEATURES / BENEFITS -->
+  <!-- FEATURES -->
   <section id="features" class="section section-alt">
     <div class="container">
-      <h2 class="section-title">Why it actually works</h2>
-      <p class="section-sub">Every feature exists to make sure you're vertical, alert, and moving before your day begins.</p>
+      <span class="eyebrow eyebrow-center">Why it works</span>
+      <h2 class="section-title">Built to make excuses harder than exercise.</h2>
       <div class="feature-grid">
         <div class="feature-card">
           <div class="feature-icon">🎥</div>
           <h3>Real rep validation</h3>
-          <p>Not a shake-to-dismiss gimmick. Your camera watches actual push-up form — full extension counts, half-reps don't.</p>
+          <p>Not a shake-to-dismiss gimmick. Your camera tracks actual joint angles — full extension counts, half-reps don't.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">🔒</div>
           <h3>On-device & private</h3>
-          <p>All motion analysis happens on your phone. Nothing is recorded, uploaded, or stored — ever.</p>
+          <p>Pose detection runs entirely on your phone using Google's ML Kit. No video ever leaves the device.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">⏱️</div>
-          <h3>Built to actually wake you</h3>
-          <p>Full volume, ignores your silent switch, and won't let you fall back asleep mid-dismiss like a tap-to-stop alarm can.</p>
+          <div class="feature-icon">🔊</div>
+          <h3>Impossible to sleep through</h3>
+          <p>Full volume, bypasses Do Not Disturb, wakes the screen from a lock — every trick a real alarm needs, none of the ones a snooze app uses to feel safe.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">🔁</div>
           <h3>Flexible repeats & snooze</h3>
-          <p>Weekday, weekend, or custom repeat schedules, with optional snooze windows on your terms.</p>
+          <p>Weekday, weekend, or custom schedules, with optional snooze windows if you actually need them.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">💪</div>
           <h3>More exercises, always free</h3>
-          <p>Squats, jumping jacks and more are on the roadmap — every new exercise ships free to subscribers.</p>
+          <p>Squats and jumping jacks are next on the roadmap — every new exercise ships free to subscribers.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">📈</div>
@@ -165,32 +181,12 @@
     </div>
   </section>
 
-  <!-- TESTIMONIALS -->
-  <section class="section">
-    <div class="container">
-      <h2 class="section-title">Early testers, real mornings</h2>
-      <div class="testimonial-grid">
-        <blockquote class="testimonial">
-          <p>“I've tried every 'walk to your bathroom' and 'solve a math problem' alarm out there. This is the first one where I'm actually awake by the time it stops.”</p>
-          <cite>— Early beta tester</cite>
-        </blockquote>
-        <blockquote class="testimonial">
-          <p>“Three push-ups sounds tiny until it's 6am and you have to actually do them to make the noise stop. Weirdly, that's exactly why it works.”</p>
-          <cite>— Early beta tester</cite>
-        </blockquote>
-        <blockquote class="testimonial">
-          <p>“Knowing I have to move the second it rings has basically killed my snooze habit. My mornings start an hour earlier now.”</p>
-          <cite>— Early beta tester</cite>
-        </blockquote>
-      </div>
-    </div>
-  </section>
-
   <!-- PRICING -->
-  <section id="pricing" class="section section-alt">
+  <section id="pricing" class="section">
     <div class="container">
-      <h2 class="section-title">Simple pricing</h2>
-      <p class="section-sub">One plan. Everything unlocked. Cancel anytime from Google Play.</p>
+      <span class="eyebrow eyebrow-center">Pricing</span>
+      <h2 class="section-title">One plan. Everything unlocked.</h2>
+      <p class="section-sub">No tiers to compare. Try it free, then keep it for less than a coffee a month.</p>
       <div class="pricing-card">
         <div class="pricing-badge">3-day free trial</div>
         <h3>MorningAlarm Plus</h3>
@@ -202,55 +198,53 @@
           <li>✔ Custom alarm sounds</li>
           <li>✔ Priority support</li>
         </ul>
-        <a href="#waitlist" class="btn btn-primary btn-block">Start your free trial</a>
-        <p class="pricing-fine">Free for 3 days, then ₹50/month. Cancel anytime in Google Play before your trial ends and you won't be charged.</p>
+        <a href="https://github.com/ramcc007/morning-alarm-app/releases/download/debug-latest/morningalarm.apk" class="btn btn-primary btn-block" data-apk-link>Download the APK</a>
+        <p class="pricing-fine">Free for 3 days, then ₹50/month once billing goes live in-app. Cancel anytime.</p>
       </div>
     </div>
   </section>
 
   <!-- FAQ -->
-  <section id="faq" class="section">
+  <section id="faq" class="section section-alt">
     <div class="container container-narrow">
-      <h2 class="section-title">Frequently asked questions</h2>
+      <span class="eyebrow eyebrow-center">FAQ</span>
+      <h2 class="section-title">Questions worth asking</h2>
       <div class="faq-list">
         <details class="faq-item" open>
+          <summary>Is this on the Google Play Store?</summary>
+          <p>Not yet — we're still finishing testing before submitting. Until then, "Download the APK" gives you a direct, real build straight from our GitHub releases. It's the same app you'll eventually find on Play.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Wait, is it safe to install an APK from outside the Play Store?</summary>
+          <p>Yes, as long as it comes from a source you trust — this one is built automatically from the exact source code in our public GitHub repo, so anyone can inspect it. Your phone will show an "install blocked" warning the first time; you'll need to allow installs from the app you used to open the file (Files, Chrome, etc.) in Settings.</p>
+        </details>
+        <details class="faq-item">
           <summary>Do I really have to do push-ups to turn off the alarm?</summary>
-          <p>Yes — that's the whole point. Set your rep target (3 is the default), and the alarm keeps ringing until your camera confirms you've completed them with full range of motion.</p>
+          <p>Yes — that's the whole point. Set your rep target (3 by default), and the alarm keeps ringing until your camera confirms you've completed them with full range of motion.</p>
         </details>
         <details class="faq-item">
           <summary>Does the app record or upload video of me?</summary>
-          <p>No. All pose detection runs entirely on your device using Google's ML Kit Pose Detection. No video or images ever leave your phone.</p>
+          <p>No. All pose detection runs entirely on your device using Google's ML Kit. No video or images ever leave your phone.</p>
         </details>
         <details class="faq-item">
           <summary>What if I can't physically do push-ups?</summary>
           <p>We're actively building additional exercise types (squats, jumping jacks, and more) so everyone can find a movement that works for them. Push-ups ship first.</p>
         </details>
         <details class="faq-item">
-          <summary>What happens after the free trial?</summary>
-          <p>After 3 days, your subscription renews automatically at ₹50/month unless you cancel first in Google Play's subscription settings. You're never charged during the trial itself.</p>
-        </details>
-        <details class="faq-item">
-          <summary>Can I cancel anytime?</summary>
-          <p>Yes. Subscriptions are billed and managed entirely through Google Play — cancel anytime from the Play Store app → Payments & subscriptions on your phone.</p>
-        </details>
-        <details class="faq-item">
-          <summary>Which Android phones does it work on?</summary>
-          <p>Any phone running Android 8.0 (API 26) or later with a front-facing camera.</p>
+          <summary>Which phones does it work on?</summary>
+          <p>Any Android phone running Android 8.0 (API 26) or later with a front-facing camera.</p>
         </details>
       </div>
     </div>
   </section>
 
-  <!-- WAITLIST / CTA -->
-  <section id="waitlist" class="section cta-section">
+  <!-- FINAL CTA -->
+  <section class="section cta-section">
     <div class="container cta-inner">
-      <h2>Be first to know when MorningAlarm launches</h2>
-      <p>We're finishing up testing before submitting to Google Play. Drop your email and we'll let you know the moment it's live.</p>
-      <form class="waitlist-form" id="waitlistForm">
-        <input type="email" required placeholder="you@example.com" aria-label="Email address">
-        <button type="submit" class="btn btn-primary">Notify me</button>
-      </form>
-      <p class="waitlist-note" id="waitlistNote"></p>
+      <h2>Ready to earn tomorrow's alarm?</h2>
+      <p>Grab the early-access build, prop your phone up tonight, and find out how loud "loud" can get.</p>
+      <a href="https://github.com/ramcc007/morning-alarm-app/releases/download/debug-latest/morningalarm.apk" class="btn btn-primary btn-large" data-apk-link>Download the APK</a>
+      <p class="waitlist-note">Android · direct download · Play Store listing coming soon</p>
     </div>
   </section>
 
@@ -259,13 +253,25 @@
 <footer class="site-footer">
   <div class="container footer-grid">
     <div>
-      <a class="brand" href="#top"><span class="brand-mark">⏰</span> MorningAlarm</a>
+      <a class="brand" href="#top">
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <circle cx="20" cy="20" r="17" fill="none" stroke="url(#footGrad)" stroke-width="3"/>
+          <path d="M6 24a14 14 0 0 1 28 0" fill="none" stroke="url(#footGrad)" stroke-width="3" stroke-linecap="round"/>
+          <defs>
+            <linearGradient id="footGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#FF6B4F"/>
+              <stop offset="100%" stop-color="#FFB037"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        MorningAlarm
+      </a>
       <p class="footer-tagline">Earn your mornings, one rep at a time.</p>
     </div>
     <div class="footer-links">
       <h4>Product</h4>
       <a href="#how-it-works">How it works</a>
-      <a href="#features">Features</a>
+      <a href="#features">Why it works</a>
       <a href="#pricing">Pricing</a>
     </div>
     <div class="footer-links">
@@ -276,7 +282,7 @@
     </div>
   </div>
   <div class="container footer-bottom">
-    <p>&copy; 2026 MorningAlarm. All rights reserved.</p>
+    <p>&copy; 2026 MorningAlarm. Distributed as a direct APK during early access.</p>
   </div>
 </footer>
 
