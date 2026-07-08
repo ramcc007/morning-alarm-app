@@ -1,5 +1,5 @@
 <resources>
-    <style name="Theme.MorningAlarm" parent="android:Theme.Material.NoActionBar">
+    <style name="Theme.Wakerep" parent="android:Theme.Material.NoActionBar">
         <item name="android:statusBarColor">@color/background</item>
         <item name="android:navigationBarColor">@color/background</item>
         <item name="android:windowBackground">@color/background</item>
@@ -11,7 +11,7 @@
       the Window instance, see AlarmRingingActivity.onCreate), this theme
       just strips chrome so the camera preview can go edge-to-edge.
     -->
-    <style name="Theme.MorningAlarm.Ringing" parent="Theme.MorningAlarm">
+    <style name="Theme.Wakerep.Ringing" parent="Theme.Wakerep">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowNoTitle">true</item>
     </style>

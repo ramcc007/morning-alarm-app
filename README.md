@@ -1,10 +1,10 @@
-# MorningAlarm
+# Wakerep
 
 An Android alarm clock that only stops once your camera confirms you've done
 your exercise — starting with push-ups.
 
 - **`android-app/`** — the Kotlin + Jetpack Compose app (native, Android 8.0+ / API 26+). See `android-app/README.md` for how to open it in Android Studio, run it on-device for free, and configure the Play Billing subscription. Runs on Windows, macOS, or Linux — no Mac required.
-- **`website/`** — the static marketing site (hero, how it works, features, pricing, FAQ, waitlist). See `website/README.md` to preview or deploy it. Auto-deploys to GitHub Pages via `.github/workflows/deploy-pages.yml`.
+- **`website/`** — the static marketing site (hero, animated sunrise scroll, how it works, features, pricing, FAQ). See `website/README.md` to preview or deploy it (Vercel or GitHub Pages, both wired up).
 
 ## Product summary
 

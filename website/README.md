@@ -1,4 +1,4 @@
-# MorningAlarm website
+# Wakerep website
 
 Static marketing site — no build step, no framework, no dependencies.
 
@@ -14,7 +14,7 @@ website/
 ```
 
 Every "Get the APK" / "Download the APK" button links directly to:
-`https://github.com/ramcc007/morning-alarm-app/releases/download/debug-latest/morningalarm.apk`
+`https://github.com/ramcc007/morning-alarm-app/releases/download/debug-latest/wakerep.apk`
 
 That's a permanent URL — `.github/workflows/build-apk.yml` replaces the
 `debug-latest` release's APK on every successful build, so the link never
@@ -61,5 +61,5 @@ You can run this *and* Vercel simultaneously if you want — they don't conflict
 - [ ] Once the app is on Google Play, swap every `data-apk-link` button href from the direct APK URL to the Play Store listing (search `data-apk-link` in `index.html`).
 - [ ] Have `privacy.html` and `terms.html` reviewed by a lawyer — they're solid drafts covering the app's actual data practices (on-device camera processing, Play Billing subscriptions, no analytics SDKs) but are not a substitute for legal review.
 - [ ] Swap the illustrated phone mockup in the hero for a real device screenshot once you have one from Android Studio/a physical device.
-- [ ] Update `support@morningalarm.app` and any other placeholder contact/domain references to your real domain and inbox.
+- [ ] Update `support@wakerep.app` and any other placeholder contact/domain references to your real domain and inbox.
 - [ ] The APK is currently **debug-signed** (fine for direct-download early access, but replace with a properly release-signed + Play App Signing build before treating this as a real public distribution channel long-term).

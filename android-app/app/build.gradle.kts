@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.morningalarm.app"
+    namespace = "com.wakerep.app"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.morningalarm.app"
+        applicationId = "com.wakerep.app"
         minSdk = 26
         targetSdk = 34
         versionCode = 1

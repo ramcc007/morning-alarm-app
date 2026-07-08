@@ -41,24 +41,24 @@ jobs:
       - name: Upload APK (workflow artifact)
         uses: actions/upload-artifact@v4
         with:
-          name: morningalarm-debug-apk
+          name: wakerep-debug-apk
           path: android-app/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 30
 
       - name: Rename APK for a stable download filename
-        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk morningalarm.apk
+        run: cp android-app/app/build/outputs/apk/debug/app-debug.apk wakerep.apk
 
       - name: Publish/update the "latest" release with the APK attached
         uses: softprops/action-gh-release@v2
         with:
           tag_name: debug-latest
-          name: "MorningAlarm - latest debug build"
+          name: "Wakerep - latest debug build"
           body: |
             Automatically rebuilt from `${{ github.sha }}` on every push to `android-app/**`.
             This is a debug-signed APK for sideloading/testing only, not a Play Store release.
 
-            Download: `morningalarm.apk` below, or use the direct link:
-            https://github.com/${{ github.repository }}/releases/download/debug-latest/morningalarm.apk
-          files: morningalarm.apk
+            Download: `wakerep.apk` below, or use the direct link:
+            https://github.com/${{ github.repository }}/releases/download/debug-latest/wakerep.apk
+          files: wakerep.apk
           prerelease: true

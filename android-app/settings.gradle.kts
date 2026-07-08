@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "MorningAlarm"
+rootProject.name = "Wakerep"
 include(":app")

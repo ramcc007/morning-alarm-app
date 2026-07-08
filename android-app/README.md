@@ -1,4 +1,4 @@
-# MorningAlarm (Android)
+# Wakerep (Android)
 
 An alarm clock that won't stop ringing until you prove — on camera — that
 you've done your exercise. Ships with push-ups; rep counting is pluggable so
@@ -20,9 +20,9 @@ android-app/
     proguard-rules.pro
     src/main/
       AndroidManifest.xml
-      kotlin/com/morningalarm/app/
+      kotlin/com/wakerep/app/
         MainActivity.kt             # Nav host: onboarding -> alarms/settings tabs
-        MorningAlarmApplication.kt  # Holds the app-wide AlarmRepository + BillingManager
+        WakerepApplication.kt  # Holds the app-wide AlarmRepository + BillingManager
         model/                      # Alarm, Weekday, ExerciseType
         data/                       # AlarmRepository (DataStore-backed JSON persistence)
         alarm/                      # AlarmScheduler, AlarmReceiver, AlarmRingingService,
@@ -61,9 +61,9 @@ need to pay anything when you're ready to **publish**:
 
 ## Google Play Console setup (before shipping)
 
-1. Create the app listing, applicationId `com.morningalarm.app`.
+1. Create the app listing, applicationId `com.wakerep.app`.
 2. Go to **Monetize → Products → Subscriptions**, create a subscription with
-   product ID `morningalarm_plus_monthly` (must match `SUBSCRIPTION_PRODUCT_ID`
+   product ID `wakerep_plus_monthly` (must match `SUBSCRIPTION_PRODUCT_ID`
    in `BillingManager.kt`).
 3. Add a **base plan** priced at **₹50/month**, then add a **free trial offer**
    (3 days) on that base plan — this is configured entirely in Play Console,
