@@ -4,9 +4,11 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.wakerep.app.camera.JumpingJackRepDetector
 import com.wakerep.app.camera.PoseCameraController
 import com.wakerep.app.camera.PushupRepDetector
 import com.wakerep.app.camera.RepDetector
+import com.wakerep.app.camera.SquatRepDetector
 import com.wakerep.app.model.Alarm
 import com.wakerep.app.model.ExerciseType
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,6 +21,8 @@ class AlarmRingingViewModel(val alarm: Alarm, context: Context) : ViewModel() {
 
     private val detector: RepDetector = when (alarm.exercise) {
         ExerciseType.PUSHUPS -> PushupRepDetector()
+        ExerciseType.SQUATS -> SquatRepDetector()
+        ExerciseType.JUMPING_JACKS -> JumpingJackRepDetector()
     }
 
     private val _repCount = MutableStateFlow(0)

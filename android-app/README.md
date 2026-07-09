@@ -88,10 +88,16 @@ blocked entirely until the user manually opens the app.
 
 ## Extending to new exercises
 
+Ships with three exercises today: push-ups, squats, and jumping jacks.
+
 1. Add a value to `ExerciseType` (`model/ExerciseType.kt`).
-2. Implement `RepDetector` (see `PushupRepDetector.kt` as the reference) with
-   whatever joint-angle or motion logic fits the movement, using ML Kit's
-   `Pose` landmarks.
+2. Implement `RepDetector`. If the movement reduces to "track the angle at
+   one middle joint across a left/right limb pair and count a down -> up
+   transition" (like push-ups/squats), extend `JointAngleRepDetector` —
+   see `PushupRepDetector.kt` and `SquatRepDetector.kt`, both just a
+   constructor call with different landmark triples and thresholds.
+   Otherwise implement `RepDetector` directly, as `JumpingJackRepDetector.kt`
+   does for its arms-up/legs-apart posture check.
 3. Wire the new case into the `when` in `AlarmRingingViewModel`'s detector selection.
 
 ## Known limitations / follow-ups worth doing next
