@@ -99,9 +99,10 @@ class JumpingJackRepDetector : RepDetector {
 
         // Continuous approximation blending arm-raise and leg-spread progress, purely for the
         // live visual feedback (the OPEN/CLOSED booleans above still drive actual rep counting).
-        val armProgress = (((shoulderMidY - minWristY) / torsoLength) / (armsUpMarginRatio * 3f))
-            .coerceIn(0f, 1f)
-        val legProgress = ((ankleSpread / hipWidth) / (legSpreadRatio * 1.2f)).coerceIn(0f, 1f)
+        val armProgress = (((shoulderMidY - minWristY) / torsoLength).toDouble() / (armsUpMarginRatio * 3.0))
+            .coerceIn(0.0, 1.0).toFloat()
+        val legProgress = ((ankleSpread / hipWidth).toDouble() / (legSpreadRatio * 1.2))
+            .coerceIn(0.0, 1.0).toFloat()
         liveExtension = (armProgress + legProgress) / 2f
 
         return armsUp && legsApart
