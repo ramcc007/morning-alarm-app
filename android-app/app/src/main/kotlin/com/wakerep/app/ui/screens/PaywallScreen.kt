@@ -33,12 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.wakerep.app.billing.BillingManager
-import com.wakerep.app.ui.theme.AccentOrange
-import com.wakerep.app.ui.theme.Background
-import com.wakerep.app.ui.theme.SuccessGreen
-import com.wakerep.app.ui.theme.Surface
-import com.wakerep.app.ui.theme.TextPrimary
-import com.wakerep.app.ui.theme.TextSecondary
+import com.wakerep.app.ui.theme.WakerepColors
 import kotlinx.coroutines.launch
 
 private data class Benefit(val icon: androidx.compose.ui.graphics.vector.ImageVector, val text: String)
@@ -64,20 +59,20 @@ fun PaywallScreen(billingManager: BillingManager, onDismiss: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Background)
+            .background(WakerepColors.InkCanvas)
             .verticalScroll(rememberScrollState())
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Icon(Icons.Filled.FitnessCenter, contentDescription = null, tint = AccentOrange, modifier = Modifier.padding(top = 24.dp))
-        Text("Wakerep Plus", color = TextPrimary, fontWeight = FontWeight.Bold, fontSize = 26.sp, modifier = Modifier.padding(top = 8.dp))
-        Text("Wake up. Earn it. Own your morning.", color = TextSecondary, fontSize = 14.sp)
+        Icon(Icons.Filled.FitnessCenter, contentDescription = null, tint = WakerepColors.Coral, modifier = Modifier.padding(top = 24.dp))
+        Text("Wakerep Plus", color = WakerepColors.TextHigh, fontWeight = FontWeight.Bold, fontSize = 26.sp, modifier = Modifier.padding(top = 8.dp))
+        Text("Wake up. Earn it. Own your morning.", color = WakerepColors.TextMid, fontSize = 14.sp)
 
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 28.dp)
-                .background(Surface, RoundedCornerShape(20.dp))
+                .background(WakerepColors.Surface, RoundedCornerShape(20.dp))
                 .padding(20.dp),
         ) {
             benefits.forEach { benefit ->
@@ -85,15 +80,15 @@ fun PaywallScreen(billingManager: BillingManager, onDismiss: () -> Unit) {
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.padding(vertical = 8.dp),
                 ) {
-                    Icon(benefit.icon, contentDescription = null, tint = SuccessGreen, modifier = Modifier.padding(end = 14.dp))
-                    Text(benefit.text, color = TextPrimary)
+                    Icon(benefit.icon, contentDescription = null, tint = WakerepColors.Amber, modifier = Modifier.padding(end = 14.dp))
+                    Text(benefit.text, color = WakerepColors.TextHigh)
                 }
             }
         }
 
         Text(
             billingManager.trialDescription() ?: "3-day free trial, then ₹50.00/month",
-            color = TextPrimary,
+            color = WakerepColors.TextHigh,
             fontWeight = FontWeight.SemiBold,
             fontSize = 16.sp,
             textAlign = TextAlign.Center,
@@ -101,7 +96,7 @@ fun PaywallScreen(billingManager: BillingManager, onDismiss: () -> Unit) {
         )
         Text(
             "Cancel anytime in Google Play. No charge until your trial ends.",
-            color = TextSecondary,
+            color = WakerepColors.TextMid,
             fontSize = 12.sp,
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(top = 4.dp, start = 16.dp, end = 16.dp),
@@ -110,13 +105,13 @@ fun PaywallScreen(billingManager: BillingManager, onDismiss: () -> Unit) {
         Button(
             onClick = { (context as? android.app.Activity)?.let { billingManager.purchase(it) } },
             modifier = Modifier.fillMaxWidth().padding(top = 20.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = AccentOrange),
+            colors = ButtonDefaults.buttonColors(containerColor = WakerepColors.Coral),
         ) {
             Text("Start Free Trial", color = Color.Black, fontWeight = FontWeight.Bold)
         }
 
         TextButton(onClick = { coroutineScope.launch { billingManager.refreshEntitlements() } }) {
-            Text("Restore Purchases", color = TextSecondary, fontSize = 13.sp)
+            Text("Restore Purchases", color = WakerepColors.TextMid, fontSize = 13.sp)
         }
 
         errorMessage?.let {
@@ -124,7 +119,7 @@ fun PaywallScreen(billingManager: BillingManager, onDismiss: () -> Unit) {
         }
 
         TextButton(onClick = onDismiss) {
-            Text("Not Now", color = TextSecondary)
+            Text("Not Now", color = WakerepColors.TextMid)
         }
     }
 }

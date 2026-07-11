@@ -10,12 +10,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Alarm
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -46,7 +43,8 @@ import com.wakerep.app.ui.screens.AlarmListScreen
 import com.wakerep.app.ui.screens.OnboardingScreen
 import com.wakerep.app.ui.screens.PaywallScreen
 import com.wakerep.app.ui.screens.SettingsScreen
-import com.wakerep.app.ui.theme.Background
+import com.wakerep.app.ui.icons.WakerepIcons
+import com.wakerep.app.ui.theme.WakerepColors
 import com.wakerep.app.ui.theme.WakerepTheme
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -75,7 +73,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             WakerepTheme {
-                Surface(modifier = Modifier.fillMaxSize(), color = Background) {
+                Surface(modifier = Modifier.fillMaxSize(), color = WakerepColors.InkCanvas) {
                     var hasCompletedOnboarding by remember { mutableStateOf<Boolean?>(null) }
 
                     LaunchedEffect(Unit) {
@@ -107,21 +105,30 @@ private fun AppNavHost(app: WakerepApplication) {
     val currentRoute = backStackEntry?.destination?.route
 
     Scaffold(
-        containerColor = Background,
+        containerColor = WakerepColors.InkCanvas,
         bottomBar = {
             if (currentRoute in TOP_LEVEL_ROUTES) {
-                NavigationBar(containerColor = Background) {
+                NavigationBar(containerColor = WakerepColors.InkCanvas) {
+                    val navColors = NavigationBarItemDefaults.colors(
+                        selectedIconColor = WakerepColors.Coral,
+                        selectedTextColor = WakerepColors.Coral,
+                        unselectedIconColor = WakerepColors.TextMid,
+                        unselectedTextColor = WakerepColors.TextMid,
+                        indicatorColor = WakerepColors.SurfaceHigh,
+                    )
                     NavigationBarItem(
                         selected = currentRoute == "alarms",
                         onClick = { navController.navigate("alarms") { launchSingleTop = true } },
-                        icon = { Icon(Icons.Filled.Alarm, contentDescription = null) },
+                        icon = { WakerepIcons.Alarm(tint = if (currentRoute == "alarms") WakerepColors.Coral else WakerepColors.TextMid) },
                         label = { Text("Alarms") },
+                        colors = navColors,
                     )
                     NavigationBarItem(
                         selected = currentRoute == "settings",
                         onClick = { navController.navigate("settings") { launchSingleTop = true } },
-                        icon = { Icon(Icons.Filled.Settings, contentDescription = null) },
+                        icon = { WakerepIcons.Settings(tint = if (currentRoute == "settings") WakerepColors.Coral else WakerepColors.TextMid) },
                         label = { Text("Settings") },
+                        colors = navColors,
                     )
                 }
             }

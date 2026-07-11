@@ -30,26 +30,45 @@ abstract class JointAngleRepDetector(
     private val minLandmarkConfidence = 0.3f
     private val minRepIntervalMs = 500L
 
+    /** How far below the up-threshold still counts as "attempting a descent" for shallow-rep detection. */
+    private val shallowAttemptMarginDegrees = 20.0
+    private val formWarningDurationMs = 1500L
+
     private enum class LimbState { UP, DOWN, UNKNOWN }
     private var state = LimbState.UNKNOWN
     private var lastRepAt = 0L
+    private var isDescending = false
+    private var formWarningExpiresAt = 0L
 
     final override var repCount: Int = 0
         private set
+    final override var liveExtension: Float = 0f
+        private set
     final override var onRepCompleted: ((Int) -> Unit)? = null
+    final override var onLiveUpdate: (() -> Unit)? = null
     final override var guidance: String? = null
         private set
 
     final override fun reset() {
         repCount = 0
+        liveExtension = 0f
         state = LimbState.UNKNOWN
         lastRepAt = 0L
+        isDescending = false
+        formWarningExpiresAt = 0L
         guidance = null
     }
 
     final override fun process(pose: Pose) {
-        val angle = averageJointAngle(pose) ?: return // guidance already set
+        val angle = averageJointAngle(pose)
+        if (angle == null) {
+            onLiveUpdate?.invoke() // guidance already set by averageJointAngle
+            return
+        }
         guidance = null
+        liveExtension = ((angle - downThresholdDegrees) / (upThresholdDegrees - downThresholdDegrees))
+            .coerceIn(0.0, 1.0)
+            .toFloat()
 
         when (state) {
             LimbState.UNKNOWN -> state = when {
@@ -57,7 +76,20 @@ abstract class JointAngleRepDetector(
                 angle <= downThresholdDegrees -> LimbState.DOWN
                 else -> LimbState.UNKNOWN
             }
-            LimbState.UP -> if (angle <= downThresholdDegrees) state = LimbState.DOWN
+            LimbState.UP -> when {
+                angle <= downThresholdDegrees -> {
+                    state = LimbState.DOWN
+                    isDescending = false
+                }
+                angle <= upThresholdDegrees - shallowAttemptMarginDegrees -> {
+                    isDescending = true
+                }
+                isDescending && angle >= upThresholdDegrees - 5.0 -> {
+                    // Came back up without ever reaching full depth - a shallow, non-counting attempt.
+                    isDescending = false
+                    formWarningExpiresAt = System.currentTimeMillis() + formWarningDurationMs
+                }
+            }
             LimbState.DOWN -> if (angle >= upThresholdDegrees) {
                 state = LimbState.UP
                 val now = System.currentTimeMillis()
@@ -68,6 +100,12 @@ abstract class JointAngleRepDetector(
                 }
             }
         }
+
+        if (System.currentTimeMillis() < formWarningExpiresAt) {
+            guidance = "Go lower for it to count"
+        }
+
+        onLiveUpdate?.invoke()
     }
 
     private fun averageJointAngle(pose: Pose): Double? {

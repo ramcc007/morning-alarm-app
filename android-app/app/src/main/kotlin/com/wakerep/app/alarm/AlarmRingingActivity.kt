@@ -25,7 +25,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
@@ -35,8 +34,9 @@ import com.wakerep.app.WakerepApplication
 import com.wakerep.app.model.Alarm
 import com.wakerep.app.ui.AlarmRingingViewModel
 import com.wakerep.app.ui.screens.AlarmRingingScreen
-import com.wakerep.app.ui.theme.Background
+import com.wakerep.app.ui.theme.WakerepColors
 import com.wakerep.app.ui.theme.WakerepTheme
+import com.wakerep.app.ui.theme.WakerepType
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -136,14 +136,15 @@ private fun CameraPermissionRequiredContent(onOpenSettings: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Background)
+            .background(WakerepColors.InkCanvas)
             .padding(32.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
         Text(
             "Camera access is required to validate your exercise and stop the alarm.",
-            color = Color.White,
+            style = WakerepType.BodyLg,
+            color = WakerepColors.TextHigh,
             textAlign = TextAlign.Center,
         )
         Button(onClick = onOpenSettings, modifier = Modifier.padding(top = 16.dp)) {

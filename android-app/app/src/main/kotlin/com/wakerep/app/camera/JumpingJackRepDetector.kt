@@ -28,19 +28,27 @@ class JumpingJackRepDetector : RepDetector {
 
     override var repCount: Int = 0
         private set
+    override var liveExtension: Float = 0f
+        private set
     override var onRepCompleted: ((Int) -> Unit)? = null
+    override var onLiveUpdate: (() -> Unit)? = null
     override var guidance: String? = null
         private set
 
     override fun reset() {
         repCount = 0
+        liveExtension = 0f
         state = JackState.UNKNOWN
         lastRepAt = 0L
         guidance = null
     }
 
     override fun process(pose: Pose) {
-        val isOpen = classifyPosture(pose) ?: return // guidance already set
+        val isOpen = classifyPosture(pose)
+        if (isOpen == null) {
+            onLiveUpdate?.invoke() // guidance already set by classifyPosture
+            return
+        }
         guidance = null
 
         when (state) {
@@ -56,6 +64,8 @@ class JumpingJackRepDetector : RepDetector {
                 }
             }
         }
+
+        onLiveUpdate?.invoke()
     }
 
     /** True = arms overhead + legs spread ("open"), false = "closed", null = not enough of the body visible. */
@@ -79,12 +89,20 @@ class JumpingJackRepDetector : RepDetector {
         val hipMidY = (leftHip!!.position.y + rightHip!!.position.y) / 2f
         val torsoLength = abs(hipMidY - shoulderMidY).coerceAtLeast(1f)
 
-        val armsUp = leftWrist!!.position.y < shoulderMidY - torsoLength * armsUpMarginRatio &&
-            rightWrist!!.position.y < shoulderMidY - torsoLength * armsUpMarginRatio
+        val minWristY = minOf(leftWrist!!.position.y, rightWrist!!.position.y)
+        val armsUp = leftWrist.position.y < shoulderMidY - torsoLength * armsUpMarginRatio &&
+            rightWrist.position.y < shoulderMidY - torsoLength * armsUpMarginRatio
 
         val hipWidth = abs(leftHip.position.x - rightHip.position.x).coerceAtLeast(1f)
         val ankleSpread = abs(leftAnkle!!.position.x - rightAnkle!!.position.x)
         val legsApart = ankleSpread > hipWidth * legSpreadRatio
+
+        // Continuous approximation blending arm-raise and leg-spread progress, purely for the
+        // live visual feedback (the OPEN/CLOSED booleans above still drive actual rep counting).
+        val armProgress = (((shoulderMidY - minWristY) / torsoLength) / (armsUpMarginRatio * 3f))
+            .coerceIn(0f, 1f)
+        val legProgress = ((ankleSpread / hipWidth) / (legSpreadRatio * 1.2f)).coerceIn(0f, 1f)
+        liveExtension = (armProgress + legProgress) / 2f
 
         return armsUp && legsApart
     }

@@ -26,10 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.wakerep.app.ui.theme.AccentOrange
-import com.wakerep.app.ui.theme.Background
-import com.wakerep.app.ui.theme.TextPrimary
-import com.wakerep.app.ui.theme.TextSecondary
+import com.wakerep.app.ui.theme.WakerepColors
 import kotlinx.coroutines.launch
 
 private data class OnboardingPage(
@@ -61,7 +58,7 @@ fun OnboardingScreen(onFinished: () -> Unit) {
     val pagerState = rememberPagerState(pageCount = { pages.size })
     val scope = rememberCoroutineScope()
 
-    Column(modifier = Modifier.fillMaxSize().background(Background)) {
+    Column(modifier = Modifier.fillMaxSize().background(WakerepColors.InkCanvas)) {
         HorizontalPager(state = pagerState, modifier = Modifier.weight(1f)) { index ->
             val page = pages[index]
             Column(
@@ -69,17 +66,17 @@ fun OnboardingScreen(onFinished: () -> Unit) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
             ) {
-                Icon(page.icon, contentDescription = null, tint = AccentOrange, modifier = Modifier.padding(bottom = 24.dp))
+                Icon(page.icon, contentDescription = null, tint = WakerepColors.Coral, modifier = Modifier.padding(bottom = 24.dp))
                 Text(
                     page.title,
-                    color = TextPrimary,
+                    color = WakerepColors.TextHigh,
                     fontWeight = FontWeight.Bold,
                     fontSize = 26.sp,
                     textAlign = TextAlign.Center,
                 )
                 Text(
                     page.subtitle,
-                    color = TextSecondary,
+                    color = WakerepColors.TextMid,
                     fontSize = 15.sp,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(top = 16.dp),
@@ -96,7 +93,7 @@ fun OnboardingScreen(onFinished: () -> Unit) {
                 }
             },
             modifier = Modifier.fillMaxWidth().padding(horizontal = 32.dp).padding(bottom = 40.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = AccentOrange),
+            colors = ButtonDefaults.buttonColors(containerColor = WakerepColors.Coral),
         ) {
             Text(
                 if (pagerState.currentPage < pages.size - 1) "Continue" else "Get Started",

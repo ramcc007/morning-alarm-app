@@ -26,11 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.wakerep.app.BuildConfig
 import com.wakerep.app.billing.BillingManager
-import com.wakerep.app.ui.theme.AccentOrange
-import com.wakerep.app.ui.theme.Background
-import com.wakerep.app.ui.theme.Surface
-import com.wakerep.app.ui.theme.TextPrimary
-import com.wakerep.app.ui.theme.TextSecondary
+import com.wakerep.app.ui.theme.WakerepColors
 import kotlinx.coroutines.launch
 
 @Composable
@@ -40,11 +36,11 @@ fun SettingsScreen(billingManager: BillingManager, onUpgrade: () -> Unit) {
     val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
-        containerColor = Background,
+        containerColor = WakerepColors.InkCanvas,
         topBar = {
             TopAppBar(
-                title = { Text("Settings", color = TextPrimary) },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = Background),
+                title = { Text("Settings", color = WakerepColors.TextHigh) },
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = WakerepColors.InkCanvas),
             )
         }
     ) { padding ->
@@ -53,7 +49,7 @@ fun SettingsScreen(billingManager: BillingManager, onUpgrade: () -> Unit) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Surface, RoundedCornerShape(16.dp))
+                    .background(WakerepColors.Surface, RoundedCornerShape(16.dp))
                     .padding(20.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
@@ -61,18 +57,18 @@ fun SettingsScreen(billingManager: BillingManager, onUpgrade: () -> Unit) {
                 Column {
                     Text(
                         if (isSubscribed) "Wakerep Plus" else "Free",
-                        color = TextPrimary,
+                        color = WakerepColors.TextHigh,
                         fontWeight = FontWeight.Bold,
                     )
                     Text(
                         if (isSubscribed) "Unlimited alarms & exercises" else "1 active alarm. Upgrade for unlimited.",
-                        color = TextSecondary,
+                        color = WakerepColors.TextMid,
                         fontSize = 12.sp,
                     )
                 }
                 if (!isSubscribed) {
                     TextButton(onClick = onUpgrade) {
-                        Text("Upgrade", color = AccentOrange, fontWeight = FontWeight.Bold)
+                        Text("Upgrade", color = WakerepColors.Coral, fontWeight = FontWeight.Bold)
                     }
                 }
             }
@@ -92,8 +88,8 @@ fun SettingsScreen(billingManager: BillingManager, onUpgrade: () -> Unit) {
 
             SettingsSection(title = "") {
                 Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
-                    Text("Version", color = TextSecondary)
-                    Text(BuildConfig.VERSION_NAME, color = TextSecondary)
+                    Text("Version", color = WakerepColors.TextMid)
+                    Text(BuildConfig.VERSION_NAME, color = WakerepColors.TextMid)
                 }
             }
         }
@@ -104,13 +100,13 @@ fun SettingsScreen(billingManager: BillingManager, onUpgrade: () -> Unit) {
 private fun SettingsSection(title: String, content: @Composable androidx.compose.foundation.layout.ColumnScope.() -> Unit) {
     Column(modifier = Modifier.padding(top = 24.dp)) {
         if (title.isNotEmpty()) {
-            Text(title.uppercase(), color = TextSecondary, fontSize = 11.sp, fontWeight = FontWeight.Bold)
+            Text(title.uppercase(), color = WakerepColors.TextMid, fontSize = 11.sp, fontWeight = FontWeight.Bold)
         }
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 8.dp)
-                .background(Surface, RoundedCornerShape(16.dp))
+                .background(WakerepColors.Surface, RoundedCornerShape(16.dp))
                 .padding(horizontal = 20.dp, vertical = 8.dp),
             content = content,
         )
@@ -121,7 +117,7 @@ private fun SettingsSection(title: String, content: @Composable androidx.compose
 private fun SettingsLink(text: String, onClick: () -> Unit) {
     Text(
         text,
-        color = TextPrimary,
+        color = WakerepColors.TextHigh,
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)

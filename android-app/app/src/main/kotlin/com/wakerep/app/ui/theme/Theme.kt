@@ -6,56 +6,54 @@ import androidx.compose.material3.Shapes
 import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-
-// Single committed dark "energetic sunrise" theme, matching the marketing site.
-val Background = Color(0xFF0A0B10)
-val Surface = Color(0xFF171923)
-val SurfaceElevated = Color(0xFF1E212C)
-val AccentOrange = Color(0xFFFF8A42)
-val AccentPink = Color(0xFFFF5C8A)
-val AccentYellow = Color(0xFFFFB037)
-val SuccessGreen = Color(0xFF4FD987)
-val TextPrimary = Color(0xFFF5F6F8)
-val TextSecondary = Color(0xB3F5F6F8)
 
 private val WakerepColorScheme = darkColorScheme(
-    primary = AccentOrange,
-    secondary = AccentPink,
-    background = Background,
-    surface = Surface,
-    surfaceVariant = SurfaceElevated,
+    primary = WakerepColors.Coral,
+    secondary = WakerepColors.Pink,
+    tertiary = WakerepColors.Amber,
+    background = WakerepColors.InkCanvas,
+    surface = WakerepColors.Surface,
+    surfaceVariant = WakerepColors.SurfaceHigh,
     onPrimary = Color.Black,
-    onBackground = TextPrimary,
-    onSurface = TextPrimary,
-    error = Color(0xFFFF6B6B),
+    onBackground = WakerepColors.TextHigh,
+    onSurface = WakerepColors.TextHigh,
+    error = WakerepColors.Alert,
 )
 
 private val WakerepShapes = Shapes(
-    small = RoundedCornerShape(10.dp),
-    medium = RoundedCornerShape(16.dp),
-    large = RoundedCornerShape(20.dp),
+    small = RoundedCornerShape(WakerepRadius.control),
+    medium = RoundedCornerShape(WakerepRadius.field),
+    large = RoundedCornerShape(WakerepRadius.card),
+    extraLarge = RoundedCornerShape(WakerepRadius.sheet),
 )
 
 private val WakerepTypography = Typography(
-    headlineMedium = TextStyle(fontWeight = FontWeight.Bold, fontSize = 28.sp),
-    titleLarge = TextStyle(fontWeight = FontWeight.SemiBold, fontSize = 22.sp),
-    titleMedium = TextStyle(fontWeight = FontWeight.SemiBold, fontSize = 18.sp),
-    bodyLarge = TextStyle(fontSize = 16.sp),
-    bodyMedium = TextStyle(fontSize = 14.sp),
-    labelLarge = TextStyle(fontWeight = FontWeight.SemiBold, fontSize = 15.sp),
+    displayLarge = WakerepType.DisplayXl,
+    headlineLarge = WakerepType.H1,
+    headlineMedium = WakerepType.H2,
+    titleMedium = WakerepType.H2,
+    bodyLarge = WakerepType.BodyLg,
+    bodyMedium = WakerepType.Body,
+    labelLarge = WakerepType.Label,
+    labelSmall = WakerepType.Mono,
 )
 
+/**
+ * Root theme for the whole app - a single committed dark-native design
+ * (design-system reference doc v1.0). No light-mode variant is planned:
+ * "half-asleep in a dark room" is the primary use case at every hour.
+ */
 @Composable
 fun WakerepTheme(content: @Composable () -> Unit) {
-    MaterialTheme(
-        colorScheme = WakerepColorScheme,
-        shapes = WakerepShapes,
-        typography = WakerepTypography,
-        content = content
-    )
+    val reduceMotion = rememberReduceMotion()
+    CompositionLocalProvider(LocalReduceMotion provides reduceMotion) {
+        MaterialTheme(
+            colorScheme = WakerepColorScheme,
+            shapes = WakerepShapes,
+            typography = WakerepTypography,
+            content = content,
+        )
+    }
 }

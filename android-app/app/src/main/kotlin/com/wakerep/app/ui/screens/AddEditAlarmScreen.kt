@@ -40,12 +40,7 @@ import com.wakerep.app.model.Alarm
 import com.wakerep.app.model.Day
 import com.wakerep.app.model.ExerciseType
 import com.wakerep.app.model.Weekday
-import com.wakerep.app.ui.theme.AccentOrange
-import com.wakerep.app.ui.theme.Background
-import com.wakerep.app.ui.theme.SuccessGreen
-import com.wakerep.app.ui.theme.SurfaceElevated
-import com.wakerep.app.ui.theme.TextPrimary
-import com.wakerep.app.ui.theme.TextSecondary
+import com.wakerep.app.ui.theme.WakerepColors
 
 @Composable
 fun AddEditAlarmScreen(
@@ -62,11 +57,11 @@ fun AddEditAlarmScreen(
     var snoozeEnabled by remember { mutableStateOf(existingAlarm?.snoozeEnabled ?: true) }
 
     Scaffold(
-        containerColor = Background,
+        containerColor = WakerepColors.InkCanvas,
         topBar = {
             TopAppBar(
-                title = { Text(if (existingAlarm == null) "New Alarm" else "Edit Alarm", color = TextPrimary) },
-                navigationIcon = { TextButton(onClick = onCancel) { Text("Cancel", color = TextSecondary) } },
+                title = { Text(if (existingAlarm == null) "New Alarm" else "Edit Alarm", color = WakerepColors.TextHigh) },
+                navigationIcon = { TextButton(onClick = onCancel) { Text("Cancel", color = WakerepColors.TextMid) } },
                 actions = {
                     TextButton(onClick = {
                         val alarm = (existingAlarm ?: Alarm(hour = hour, minute = minute)).copy(
@@ -79,9 +74,9 @@ fun AddEditAlarmScreen(
                             snoozeEnabled = snoozeEnabled,
                         )
                         onSave(alarm)
-                    }) { Text("Save", color = AccentOrange, fontWeight = FontWeight.Bold) }
+                    }) { Text("Save", color = WakerepColors.Coral, fontWeight = FontWeight.Bold) }
                 },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = Background),
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = WakerepColors.InkCanvas),
             )
         }
     ) { padding ->
@@ -119,16 +114,16 @@ fun AddEditAlarmScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 20.dp)
-                    .background(SurfaceElevated, RoundedCornerShape(14.dp))
+                    .background(WakerepColors.SurfaceHigh, RoundedCornerShape(14.dp))
                     .padding(16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text("Allow Snooze", color = TextPrimary)
+                Text("Allow Snooze", color = WakerepColors.TextHigh)
                 Switch(
                     checked = snoozeEnabled,
                     onCheckedChange = { snoozeEnabled = it },
-                    colors = SwitchDefaults.colors(checkedThumbColor = Color.White, checkedTrackColor = AccentOrange),
+                    colors = SwitchDefaults.colors(checkedThumbColor = Color.White, checkedTrackColor = WakerepColors.Coral),
                 )
             }
         }
@@ -139,7 +134,7 @@ fun AddEditAlarmScreen(
 private fun SectionTitle(text: String, topPadding: androidx.compose.ui.unit.Dp = 0.dp) {
     Text(
         text.uppercase(),
-        color = TextSecondary,
+        color = WakerepColors.TextMid,
         fontSize = 12.sp,
         fontWeight = FontWeight.Bold,
         modifier = Modifier.padding(top = topPadding),
@@ -151,13 +146,13 @@ private fun TimePickerRow(hour: Int, minute: Int, onHourChange: (Int) -> Unit, o
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(SurfaceElevated, RoundedCornerShape(16.dp))
+            .background(WakerepColors.SurfaceHigh, RoundedCornerShape(16.dp))
             .padding(20.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
     ) {
         NumberStepper(value = hour, range = 0..23, onChange = onHourChange, label = "Hour")
-        Text(":", color = TextPrimary, fontSize = 28.sp, modifier = Modifier.padding(horizontal = 12.dp))
+        Text(":", color = WakerepColors.TextHigh, fontSize = 28.sp, modifier = Modifier.padding(horizontal = 12.dp))
         NumberStepper(value = minute, range = 0..59, onChange = onMinuteChange, label = "Min")
     }
 }
@@ -165,10 +160,10 @@ private fun TimePickerRow(hour: Int, minute: Int, onHourChange: (Int) -> Unit, o
 @Composable
 private fun NumberStepper(value: Int, range: IntRange, onChange: (Int) -> Unit, label: String) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text("%02d".format(value), color = TextPrimary, fontSize = 32.sp, fontWeight = FontWeight.Bold)
+        Text("%02d".format(value), color = WakerepColors.TextHigh, fontSize = 32.sp, fontWeight = FontWeight.Bold)
         Row {
-            TextButton(onClick = { onChange(if (value <= range.first) range.last else value - 1) }) { Text("-", color = AccentOrange) }
-            TextButton(onClick = { onChange(if (value >= range.last) range.first else value + 1) }) { Text("+", color = AccentOrange) }
+            TextButton(onClick = { onChange(if (value <= range.first) range.last else value - 1) }) { Text("-", color = WakerepColors.Coral) }
+            TextButton(onClick = { onChange(if (value >= range.last) range.first else value + 1) }) { Text("+", color = WakerepColors.Coral) }
         }
     }
 }
@@ -181,7 +176,7 @@ private fun WeekdayPicker(selection: Weekday, onChange: (Weekday) -> Unit) {
             Row(
                 modifier = Modifier
                     .size(36.dp)
-                    .background(if (isSelected) AccentOrange else SurfaceElevated, CircleShape)
+                    .background(if (isSelected) WakerepColors.Coral else WakerepColors.SurfaceHigh, CircleShape)
                     .clickable {
                         val newDays = if (isSelected) selection.days - day else selection.days + day
                         onChange(Weekday(newDays))
@@ -207,7 +202,7 @@ private fun ExerciseOptionCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 8.dp)
-            .background(SurfaceElevated, RoundedCornerShape(14.dp))
+            .background(WakerepColors.SurfaceHigh, RoundedCornerShape(14.dp))
             .clickable(onClick = onSelect)
             .padding(16.dp),
     ) {
@@ -216,8 +211,8 @@ private fun ExerciseOptionCard(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth(),
         ) {
-            Text(type.displayName, color = TextPrimary)
-            if (isSelected) Icon(Icons.Filled.Check, contentDescription = null, tint = SuccessGreen)
+            Text(type.displayName, color = WakerepColors.TextHigh)
+            if (isSelected) Icon(Icons.Filled.Check, contentDescription = null, tint = WakerepColors.Amber)
         }
         if (isSelected) {
             Row(
@@ -225,14 +220,14 @@ private fun ExerciseOptionCard(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text("Target: $repTarget reps", color = TextSecondary, fontSize = 14.sp)
+                Text("Target: $repTarget reps", color = WakerepColors.TextMid, fontSize = 14.sp)
                 Row {
                     TextButton(onClick = {
                         if (repTarget > type.targetRange.first) onRepTargetChange(repTarget - 1)
-                    }) { Text("-", color = AccentOrange) }
+                    }) { Text("-", color = WakerepColors.Coral) }
                     TextButton(onClick = {
                         if (repTarget < type.targetRange.last) onRepTargetChange(repTarget + 1)
-                    }) { Text("+", color = AccentOrange) }
+                    }) { Text("+", color = WakerepColors.Coral) }
                 }
             }
         }
