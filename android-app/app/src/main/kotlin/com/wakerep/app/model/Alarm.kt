@@ -1,6 +1,7 @@
 package com.wakerep.app.model
 
 import kotlinx.serialization.Serializable
+import java.util.Calendar
 import java.util.UUID
 
 @Serializable
@@ -36,4 +37,34 @@ data class Alarm(
      * (alarm, weekday) pair gets its own unique alarm slot.
      */
     val baseRequestCode: Int get() = id.hashCode()
+
+    /**
+     * Next timestamp this alarm will fire, for display purposes only (the
+     * home screen's "next alarm" heat hierarchy) - mirrors AlarmScheduler's
+     * own occurrence math without touching AlarmManager. Null if disabled.
+     */
+    fun nextTriggerMillis(now: Calendar = Calendar.getInstance()): Long? {
+        if (!isEnabled) return null
+
+        fun candidateAt(): Calendar = Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, hour)
+            set(Calendar.MINUTE, minute)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }
+
+        if (repeatDays.isEmpty) {
+            val candidate = candidateAt()
+            if (candidate.before(now)) candidate.add(Calendar.DAY_OF_YEAR, 1)
+            return candidate.timeInMillis
+        }
+
+        return repeatDays.days.minOfOrNull { day ->
+            val candidate = candidateAt()
+            while (candidate.get(Calendar.DAY_OF_WEEK) != day.calendarValue || candidate.before(now)) {
+                candidate.add(Calendar.DAY_OF_YEAR, 1)
+            }
+            candidate.timeInMillis
+        }
+    }
 }

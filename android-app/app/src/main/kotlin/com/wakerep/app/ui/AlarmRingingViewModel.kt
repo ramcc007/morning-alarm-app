@@ -23,7 +23,9 @@ import kotlinx.coroutines.launch
 class AlarmRingingViewModel(val alarm: Alarm, context: Context) : ViewModel() {
 
     private val appContext = context.applicationContext
-    private val settingsRepository = (appContext as WakerepApplication).settingsRepository
+    private val application = appContext as WakerepApplication
+    private val settingsRepository = application.settingsRepository
+    private val completionRepository = application.completionRepository
 
     val cameraController = PoseCameraController(appContext)
 
@@ -76,7 +78,13 @@ class AlarmRingingViewModel(val alarm: Alarm, context: Context) : ViewModel() {
             _repCount.value = count
             registerProgress()
             viewModelScope.launch { _repTick.emit(Unit) }
-            if (count >= targetReps) _isComplete.value = true
+            if (count >= targetReps && !_isComplete.value) {
+                _isComplete.value = true
+                val usedSnooze = application.snoozedAlarmIds.remove(alarm.id)
+                viewModelScope.launch {
+                    completionRepository.recordCompletion(alarm.exercise, count, usedSnooze)
+                }
+            }
         }
 
         detector.onLiveUpdate = {

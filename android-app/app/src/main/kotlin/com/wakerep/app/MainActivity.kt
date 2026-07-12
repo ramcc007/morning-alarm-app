@@ -38,11 +38,14 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.wakerep.app.ui.AlarmListViewModel
+import com.wakerep.app.ui.StatsViewModel
+import com.wakerep.app.ui.screens.AchievementsScreen
 import com.wakerep.app.ui.screens.AddEditAlarmScreen
 import com.wakerep.app.ui.screens.AlarmListScreen
 import com.wakerep.app.ui.screens.OnboardingScreen
 import com.wakerep.app.ui.screens.PaywallScreen
 import com.wakerep.app.ui.screens.SettingsScreen
+import com.wakerep.app.ui.screens.StreaksScreen
 import com.wakerep.app.ui.icons.WakerepIcons
 import com.wakerep.app.ui.theme.WakerepColors
 import com.wakerep.app.ui.theme.WakerepTheme
@@ -52,7 +55,7 @@ import kotlinx.coroutines.launch
 private val Context.onboardingDataStore by preferencesDataStore(name = "onboarding")
 private val ONBOARDING_KEY = booleanPreferencesKey("has_completed_onboarding")
 
-private val TOP_LEVEL_ROUTES = setOf("alarms", "settings")
+private val TOP_LEVEL_ROUTES = setOf("alarms", "streaks", "settings")
 
 class MainActivity : ComponentActivity() {
 
@@ -124,6 +127,13 @@ private fun AppNavHost(app: WakerepApplication) {
                         colors = navColors,
                     )
                     NavigationBarItem(
+                        selected = currentRoute == "streaks",
+                        onClick = { navController.navigate("streaks") { launchSingleTop = true } },
+                        icon = { WakerepIcons.Streak(tint = if (currentRoute == "streaks") WakerepColors.Coral else WakerepColors.TextMid) },
+                        label = { Text("Progress") },
+                        colors = navColors,
+                    )
+                    NavigationBarItem(
                         selected = currentRoute == "settings",
                         onClick = { navController.navigate("settings") { launchSingleTop = true } },
                         icon = { WakerepIcons.Settings(tint = if (currentRoute == "settings") WakerepColors.Coral else WakerepColors.TextMid) },
@@ -174,7 +184,23 @@ private fun AppNavHost(app: WakerepApplication) {
                 PaywallScreen(billingManager = app.billingManager, onDismiss = { navController.popBackStack() })
             }
             composable("settings") {
-                SettingsScreen(billingManager = app.billingManager, onUpgrade = { navController.navigate("paywall") })
+                SettingsScreen(
+                    billingManager = app.billingManager,
+                    settingsRepository = app.settingsRepository,
+                    onUpgrade = { navController.navigate("paywall") },
+                )
+            }
+            composable("streaks") {
+                val viewModel: StatsViewModel = viewModel(
+                    factory = StatsViewModel.Factory(app.completionRepository)
+                )
+                StreaksScreen(viewModel = viewModel, onOpenAchievements = { navController.navigate("achievements") })
+            }
+            composable("achievements") {
+                val viewModel: StatsViewModel = viewModel(
+                    factory = StatsViewModel.Factory(app.completionRepository)
+                )
+                AchievementsScreen(viewModel = viewModel, onBack = { navController.popBackStack() })
             }
         }
     }

@@ -118,6 +118,7 @@ class AlarmRingingActivity : ComponentActivity() {
         alarmState?.let { alarm ->
             val triggerAtMillis = System.currentTimeMillis() + alarm.snoozeMinutes * 60_000L
             AlarmScheduler(applicationContext).scheduleSnooze(alarm, triggerAtMillis)
+            (application as WakerepApplication).snoozedAlarmIds.add(alarm.id)
         }
         finishRinging()
     }
